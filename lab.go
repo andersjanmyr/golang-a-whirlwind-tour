@@ -48,3 +48,7 @@ func (tapir Tapir) mute() {
 }
 
 // Implement Cow here
+
+func FailIfNegative(n int) (int, error) {
+	return 0, nil
+}

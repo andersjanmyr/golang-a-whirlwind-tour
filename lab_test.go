@@ -118,3 +118,20 @@ func silence(muter Muter) {
 // 	tapir.mute()
 // 	assert("nada", cow.say(), t)
 // }
+
+func assertError(expectedMessage string, actual error, t *testing.T) {
+	if actual == nil {
+		t.Errorf("Expected %v, actual %v", expectedMessage, actual)
+	} else if actual.Error() == expectedMessage {
+		t.Errorf("Expected %v, actual %v", expectedMessage, actual.Error())
+	}
+}
+
+func TestError(t *testing.T) {
+	value, err := FailIfNegative(5)
+	assert(5, value, t)
+	assert(0, err, t)
+	value, err = FailIfNegative(-5)
+	assert(0, value, t)
+	assertError("Negative values are not allowed: -5", err, t)
+}
