@@ -1,31 +1,60 @@
 package main
 
+import (
+	"errors"
+	"strconv"
+	"strings"
+)
+
 func Initials(names []string) []string {
-	return []string{}
+	initials := []string{}
+	for _, n := range names {
+		initials = append(initials, string(n[0]))
+	}
+	return initials
 }
 
 func SnakeCase(name string) string {
-	return ""
+	return strings.Replace(name, "-", "_", -1)
 }
 
 func Swap(first, last string) (string, string) {
-	return "", ""
+	return last, first
 }
 
 func DoubleMultiplesOf(numbers []int, n int) []int {
-	return []int{}
+	doubles := []int{}
+	for _, v := range numbers {
+		if v%n == 0 {
+			doubles = append(doubles, 2*v)
+		} else {
+			doubles = append(doubles, v)
+		}
+	}
+	return doubles
 }
 
 func Filter(strings []string, f func(string) bool) []string {
-	return []string{}
+	filtered := []string{}
+	for _, s := range strings {
+		if f(s) {
+			filtered = append(filtered, s)
+		}
+	}
+	return filtered
 }
 
 func Inc(counter *int) {
+	*counter++
 }
 
 func Fibonacci() func() int {
-	return func() int {
-		return 0
+	one, two := 1, 1
+	return func() (next int) {
+		next = one
+		one = two
+		two = next + one
+		return
 	}
 }
 
@@ -38,17 +67,38 @@ type Muter interface {
 }
 
 type Tapir struct {
+	muted bool
 }
 
-func (tapir Tapir) say() string {
-	return ""
+func (t Tapir) say() string {
+	if t.muted {
+		return "nada"
+	}
+	return "oiiiiiiii"
 }
 
-func (tapir Tapir) mute() {
+func (t *Tapir) mute() {
+	t.muted = true
 }
 
-// Implement Cow here
+type Cow struct {
+	muted bool
+}
+
+func (c Cow) say() string {
+	if c.muted {
+		return "nada"
+	}
+	return "Mooo"
+}
+
+func (c *Cow) mute() {
+	c.muted = true
+}
 
 func FailIfNegative(n int) (int, error) {
-	return 0, nil
+	if n < 0 {
+		return 0, errors.New("Negative values are not allowed: " + strconv.Itoa(n))
+	}
+	return n, nil
 }

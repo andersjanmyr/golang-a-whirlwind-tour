@@ -45,8 +45,7 @@ func TestDoubleMultiplesOf(t *testing.T) {
 func TestFilter(t *testing.T) {
 	var names = []string{"Kant", "Popper", "Aristotle", "Socrates", "Plato"}
 	var actual = Filter(names, func(name string) bool {
-		// Fix filter here
-		return true
+		return string(name[0]) == "P"
 	})
 	var expected = []string{"Popper", "Plato"}
 	if !reflect.DeepEqual(expected, actual) {
@@ -65,15 +64,15 @@ func TestIncrease(t *testing.T) {
 
 func TestMap(t *testing.T) {
 	ascii := map[string]int{"A": 65, "B": 67}
-	// Write code here
+	ascii["B"] = 66
 	if !reflect.DeepEqual(map[string]int{"A": 65, "B": 66}, ascii) {
 		t.Errorf("Expected %v, actual %v", map[string]int{"A": 65, "B": 66}, ascii)
 	}
-	// Write code here
+	delete(ascii, "B")
 	if !reflect.DeepEqual(map[string]int{"A": 65}, ascii) {
 		t.Errorf("Expected %v, actual %v", map[string]int{"A": 65}, ascii)
 	}
-	// Write code here
+	ascii["C"] = 67
 	if !reflect.DeepEqual(map[string]int{"A": 65, "C": 67}, ascii) {
 		t.Errorf("Expected %v, actual %v", map[string]int{"A": 65, "C": 67}, ascii)
 	}
